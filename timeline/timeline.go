@@ -18,11 +18,9 @@ func (timeLine *TimeLine) SliceTweet() []string {
 	textCopy := timeLine.Text
 	var result []string
 
-	for i := 0; i < MaxLenTweet; i++ {
-		if len(textCopy) > MaxLenTweet {
-			result = append(result, textCopy[i:(i+MaxLenTweet)])
-			textCopy = textCopy[(i + MaxLenTweet):len(textCopy)]
-		}
+	for i := 0; len(textCopy) > MaxLenTweet; {
+		result = append(result, textCopy[i:(i+MaxLenTweet)])
+		textCopy = textCopy[(i + MaxLenTweet):len(textCopy)]
 	}
 
 	if len(textCopy) > 0 {
