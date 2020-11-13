@@ -1,6 +1,9 @@
 package config
 
-import "flag"
+import (
+	"flag"
+	"os"
+)
 
 // EnvironmentVariable - Type to environment variables.
 type EnvironmentVariable string
@@ -49,4 +52,16 @@ func FlagParse() {
 	for i := range configVars {
 		configVars[i].value = *values[i]
 	}
+}
+
+// GetValue - Find to environment variable value
+// or return default value of variable.
+func GetValue(variable EnvironmentVariable) string {
+	if value := os.Getenv(string(variable)); value != "" {
+		setVar(variable, value)
+	}
+	if conf := getVar(variable); conf != nil {
+		return conf.value
+	}
+	return ""
 }

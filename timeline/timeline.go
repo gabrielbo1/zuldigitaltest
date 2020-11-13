@@ -1,6 +1,10 @@
 package timeline
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
 
 //MaxLenTweet - Max len tweet print.
 const MaxLenTweet = 45
@@ -30,6 +34,15 @@ func (timeLine *TimeLine) SliceTweet() []string {
 func (timeLine *TimeLine) PrintlnTweet() {
 	tweets := timeLine.SliceTweet()
 	for i := range tweets {
-		fmt.Printf("Tweet #%d: %s", i+1, tweets[i])
+		fmt.Printf("Tweet #%d: %s\n", i+1, tweets[i])
 	}
+}
+
+func GetRandTimeLine(timeLines []TimeLine) TimeLine {
+	if len(timeLines) == 0 {
+		return TimeLine{}
+	}
+	rand.Seed(time.Now().UnixNano())
+	randNumber := rand.Intn(len(timeLines)-1+1) + 1
+	return timeLines[randNumber]
 }
